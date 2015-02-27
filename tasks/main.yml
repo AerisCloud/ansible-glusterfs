@@ -1,0 +1,40 @@
+- include: centos.yml
+  when: ansible_distribution == 'CentOS'
+
+- name: "Ensure the glusterd service is running"
+  service: >
+    name=glusterd
+    state=started
+    enabled=yes
+    runlevel=5
+  tags:
+    - glusterfs
+
+- name: "Create brick directory"
+  file: >
+    path=/export/{{ item }}/brick
+    state=directory
+  with_items: gluster_volumes
+  tags:
+    - glusterfs
+
+- name: "Build a variable containing the ips of the nodes of the cluster"
+  set_fact:
+    glusterfs_cluster_ips: "{% for host in groups[glusterfs_cluster_name] %},{{ hostvars[host]['ansible_ssh_host'] }}{% endfor %}"
+  tags:
+    - glusterfs
+
+- name: "Create replicated gluster volume"
+  gluster_volume: >
+    state=present
+    name={{ item }}
+    brick=/export/{{ item }}/brick
+    replicas="{{ groups[glusterfs_cluster_name]|length }}"
+    host={{ ansible_ssh_host }}
+    cluster="{{ glusterfs_cluster_ips|replace(',','',1) }}"
+    force=yes
+    start_on_create=yes
+  when: inventory_hostname == "{{ groups[glusterfs_cluster_name]|first }}"
+  with_items: gluster_volumes
+  tags:
+    - glusterfs

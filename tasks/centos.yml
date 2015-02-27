@@ -1,0 +1,13 @@
+- name: "Install GlusterFS"
+  yum: >
+   name={{ item }}
+   state=present
+   enablerepo=glusterfs-epel
+  with_items:
+    - glusterfs
+    - glusterfs-cli
+    - glusterfs-server
+    - glusterfs-fuse
+    - glusterfs-geo-replication
+  tags:
+    - glusterfs
