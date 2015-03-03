@@ -1,5 +1,5 @@
-rsyslog
-=======
+GlusterFS
+=========
 
 This role installs and configures [GlusterFS](http://www.gluster.org/).
 
