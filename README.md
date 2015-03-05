@@ -31,7 +31,7 @@ If you didn't define this role as a dependency of another role, you have to add 
   gather_facts: true
   sudo: true
   roles:
-    - role: milk.glusterfs
+    - role: aeriscloud.glusterfs
       gluster_volumes:
         - brick1
         - brick2
