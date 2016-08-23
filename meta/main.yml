@@ -12,13 +12,5 @@ galaxy_info:
   categories:
     - system
 dependencies:
-  - role: AerisCloud.repos
-    remote_repositories:
-      centos6:
-        - http://download.gluster.org/pub/gluster/glusterfs/LATEST/CentOS/glusterfs-epel.repo
-      centos7:
-        - http://download.gluster.org/pub/gluster/glusterfs/LATEST/CentOS/glusterfs-epel.repo
-    tags:
-      - glusterfs
   - role: AerisCloud.yum
 

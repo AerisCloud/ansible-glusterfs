@@ -54,6 +54,7 @@ Variables
 
 * `gluster_volumes` is a list of the volumes you want to create.
 * `glusterfs_cluster_name` must be set to the name of the group containing all the nodes of the GlusterFS cluster.
+* `glusterfs_version` is the Gluster version. Choices are '36', '37 or '38' which provides 3.6, 3.7 or 3.8, respectively. Default is '38'.
 
 See also
 --------
